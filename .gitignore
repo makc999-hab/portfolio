@@ -1,0 +1,5 @@
+dist/
+server-secret/
+resume/
+.DS_Store
+*.zip
