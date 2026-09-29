@@ -1,0 +1,140 @@
+"""Контент страниц кейсов (RU в HTML, EN уходит в словарь EN_EXTRA для app.js).
+Только проверенные факты и цифры — не добавлять выдуманных метрик."""
+
+PHONES_GM = ('<div class="shot phones">'
+             '<div class="phone-frame side"><img src="assets/greymax-1.webp" width="360" height="780" alt="GREYMAX — экран приветствия" loading="lazy"></div>'
+             '<div class="phone-frame"><img src="assets/greymax-2.webp" width="360" height="780" alt="GREYMAX — главный экран Mini App" loading="lazy"></div>'
+             '<div class="phone-frame side"><img src="assets/greymax-3.webp" width="360" height="780" alt="GREYMAX — выбор тарифа" loading="lazy"></div></div>')
+PHONES_CAL = ('<div class="shot phones">'
+              '<div class="phone-frame side"><img src="assets/calorie-2.webp" width="360" height="783" alt="CalorieAI — дневник питания" loading="lazy"></div>'
+              '<div class="phone-frame"><img src="assets/calorie-1.webp" width="360" height="783" alt="CalorieAI — главный экран с калориями и БЖУ" loading="lazy"></div>'
+              '<div class="phone-frame side"><img src="assets/calorie-3.webp" width="360" height="783" alt="CalorieAI — отчёт по весу" loading="lazy"></div></div>')
+
+FACT_LABELS = [("client", "Клиент", "Client"), ("type", "Что это", "What it is"),
+               ("role", "Моя роль", "My role"), ("stack", "Стек", "Stack")]
+
+CASES = [
+ dict(
+  slug="mh", file="case-morehleba.html", title="Море хлеба", title_en="More Hleba bakery",
+  meta="Кейс: интернет-магазин пекарни «Море хлеба» — Max Perepelitsa",
+  meta_en="Case study: More Hleba bakery online store | Max Perepelitsa",
+  desc="Интернет-магазин ремесленной пекарни: каталог с КБЖУ, корзина, вход по звонку, оплата ЮKassa, CRM. Lighthouse 60 → 99.",
+  lead="Интернет-магазин ремесленной пекарни во Владивостоке — от каталога и корзины до онлайн-оплаты и CRM для заказов.",
+  lead_en="An online store for a craft bakery in Vladivostok, from the catalog and cart to online payment and an order CRM.",
+  hero='<div class="shot"><img src="assets/morehleba.webp" width="1200" height="750" alt="Сайт пекарни Море хлеба" fetchpriority="high"></div>',
+  facts=[("Пекарня «Море хлеба», Владивосток", "More Hleba bakery, Vladivostok"),
+         ("Интернет-магазин, личный кабинет и CRM", "Online store, customer account and CRM"),
+         ("Дизайн, вёрстка, бэкенд, оптимизация, запуск", "Design, front end, back end, optimization, launch"),
+         ("HTML, CSS, JavaScript, PHP, ЮKassa", "HTML, CSS, JavaScript, PHP, YooKassa")],
+  task="Пекарне нужен был сайт, где покупатель выбирает выпечку, оплачивает онлайн и забирает заказ, а сотрудники видят все заказы в одном месте. Главное условие — сайт должен быстро открываться на телефоне.",
+  task_en="The bakery needed a site where customers pick their pastries, pay online and collect the order, while staff see every order in one place. The key requirement was that it had to load fast on a phone.",
+  solution=[
+   ("Каталог из 4 категорий: фото, состав, КБЖУ на 100 г и на порцию.", "A catalog with 4 categories: photos, ingredients, calories and macros per 100 g and per serving."),
+   ("Корзина с подсказкой до бесплатной доставки и блоком «Добавьте к заказу».", "A cart that shows how much is left until free delivery and suggests items to add."),
+   ("Вход по звонку — без паролей и кодов из SMS.", "Login by phone call, with no passwords or SMS codes."),
+   ("Онлайн-оплата через ЮKassa и личный кабинет покупателя.", "Online payment through YooKassa and a customer account."),
+   ("CRM для сотрудников: все заказы в одной панели.", "A CRM for staff with every order in one panel."),
+   ("Лента настоящих отзывов с 2ГИС прямо на сайте.", "A feed of real 2GIS reviews right on the site."),
+   ("Видео в WebM, картинки в WebP с адаптивными размерами, карта и медиа грузятся лениво.", "Video in WebM, images in WebP at responsive sizes, and the map and media load lazily."),
+  ],
+  results=[("60 → 99", "баллов Lighthouse на мобильных", "Lighthouse score on mobile"),
+           ("10,3 → 2,0 с", "до появления главного экрана (LCP)", "until the main screen appears (LCP)"),
+           ("5,2 → 1,2 МБ", "вес страницы", "page weight"),
+           ("0", "сдвигов вёрстки при загрузке (CLS)", "layout shift while loading (CLS)")],
+  links=[],
+ ),
+ dict(
+  slug="vmr", file="case-vmr-trans.html", title="ВМР ТРАНС", title_en="VMR TRANS",
+  meta="Кейс: видео-презентация для инвесторов ВМР ТРАНС — Max Perepelitsa",
+  meta_en="Case study: VMR TRANS investor presentation | Max Perepelitsa",
+  desc="Кинематографичная видео-презентация для инвесторов компании по аквакультуре: 16 полноэкранных слайдов, ленивая загрузка видео.",
+  lead="Видео-презентация для инвесторов компании по аквакультуре в Приморье. Открывается по одной ссылке на любом устройстве.",
+  lead_en="A video presentation for investors in an aquaculture company in Primorye. It opens from a single link on any device.",
+  hero='<div class="shot"><img src="assets/vmr.webp" width="1200" height="750" alt="Презентация ВМР ТРАНС" fetchpriority="high"></div>',
+  facts=[("ВМР ТРАНС, аквакультура, Приморский край", "VMR TRANS, aquaculture, Primorsky Krai"),
+         ("Сайт-презентация для инвесторов", "An investor presentation website"),
+         ("Структура, дизайн, вёрстка, оптимизация видео, хостинг", "Structure, design, front end, video optimization, hosting"),
+         ("HTML, CSS, JavaScript, MP4, SSL", "HTML, CSS, JavaScript, MP4, SSL")],
+  task="Компании нужно было показать инвесторам проект — участки, квоты и условия сделки — не PDF-файлом, а так, чтобы запомнилось. Презентация должна открываться по ссылке с телефона, в том числе на медленном мобильном интернете.",
+  task_en="The company needed to show investors its project (sea plots, quotas and deal terms) in a memorable way rather than as a PDF. The presentation had to open from a link on a phone, including on slow mobile data.",
+  solution=[
+   ("16 полноэкранных слайдов с фоновым видео — как короткий фильм о компании.", "16 fullscreen slides with background video, like a short film about the company."),
+   ("Навигация кнопками и точками, кнопка звонка всегда под рукой.", "Navigation with buttons and dots, and a call button that is always within reach."),
+   ("Ленивая загрузка: из 20 видео грузятся только текущий и следующий слайд.", "Lazy loading: out of 20 videos, only the current and next slides load."),
+   ("Видео пересобраны для быстрого старта воспроизведения.", "Videos were re-encoded so playback starts quickly."),
+   ("Ключевые цифры проекта — площадь участков и квоты — вынесены крупно.", "The key figures, sea plot area and quotas, are shown in large type."),
+   ("Публикация на хостинге с SSL и собственным адресом.", "Published on hosting with SSL at its own address."),
+  ],
+  results=[("16", "полноэкранных слайдов", "fullscreen slides"),
+           ("2 из 20", "видео грузятся одновременно, а не все сразу", "videos load at a time instead of all at once"),
+           ("1", "ссылка — работает на телефоне и компьютере", "link that works on phone and desktop")],
+  links=[("https://maxperepelitsa.store/vmr-trans/", "Открыть презентацию", "Open the presentation")],
+ ),
+ dict(
+  slug="gm", demo=True, file="case-greymax.html", title="GREYMAX", title_en="GREYMAX",
+  meta="Кейс: Telegram-сервис подписок GREYMAX — Max Perepelitsa",
+  meta_en="Case study: GREYMAX Telegram subscription service | Max Perepelitsa",
+  desc="Telegram-бот с оплатой подписок, автоматической выдачей доступа, реферальной программой и Mini App с фирменным маскотом.",
+  lead="Telegram-сервис подписок: бот сам принимает оплату, выдаёт доступ и помогает привлекать клиентов, а Mini App — фирменная витрина с маскотом.",
+  lead_en="A Telegram subscription service: the bot takes payments, grants access and helps bring in new customers on its own, and the Mini App is a branded storefront with a mascot.",
+  hero=PHONES_GM,
+  facts=[("Собственный проект", "My own product"),
+         ("Telegram-бот и Mini App", "Telegram bot and Mini App"),
+         ("Всё: идея, дизайн, разработка, сервер, поддержка", "Everything: idea, design, development, server, support"),
+         ("Python, aiogram, SQLite, Docker, Linux VPS", "Python, aiogram, SQLite, Docker, Linux VPS")],
+  task="Сделать сервис подписок, который работает без участия человека: принимает оплату, сразу выдаёт доступ, считает, откуда приходят клиенты, и помогает привлекать новых.",
+  task_en="Build a subscription service that runs without a person in the loop: it takes payment, grants access immediately, tracks where customers come from and helps attract new ones.",
+  solution=[
+   ("Оплата картой через ЮKassa — доступ выдаётся автоматически сразу после оплаты. Оплата по СБП подтверждается администратором в один клик.", "Card payments through YooKassa grant access automatically right after payment. SBP payments are confirmed by the admin in one tap."),
+   ("Реферальная программа: +7 дней обоим, когда приглашённый друг оплатит подписку. Защита от накруток повторными аккаунтами.", "A referral program: both people get +7 days once the invited friend pays. It is protected against abuse with repeat accounts."),
+   ("Воронка продаж прямо в боте: от открытия меню до оплаты.", "A sales funnel right in the bot, from opening the menu to payment."),
+   ("Лимит мест на сервере: если места закончились, заявка уходит администратору на решение.", "A seat limit per server: when seats run out, the request goes to the admin to decide."),
+   ("Рассылки всем пользователям или только тем, кто ещё не платил.", "Broadcasts to all users or only to those who have not paid yet."),
+   ("Mini App из 8 экранов в фирменном стиле с маскотом-хаски.", "An 8-screen Mini App in the brand style with a husky mascot."),
+   ("Защищённый сервер: вход только по ключам, защита от подбора паролей, файрвол. Пользователь может удалить свои данные одной командой.", "A hardened server: key-only login, brute-force protection and a firewall. Users can delete their data with one command."),
+  ],
+  results=[("110+", "пользователей в боте", "users in the bot"),
+           ("24/7", "работает на собственном сервере", "running on my own server"),
+           ("0", "ручных действий при оплате картой", "manual steps for card payments"),
+           ("8", "экранов в Mini App", "screens in the Mini App")],
+  links=[],
+ ),
+ dict(
+  slug="cal", demo=True, file="case-calorieai.html", title="CalorieAI", title_en="CalorieAI",
+  meta="Кейс: iOS-трекер питания CalorieAI — Max Perepelitsa",
+  meta_en="Case study: CalorieAI iOS nutrition tracker | Max Perepelitsa",
+  desc="iOS-приложение для подсчёта калорий на SwiftUI: дневник, БЖУ, вес, гибридный поиск продуктов на русском, штрихкоды и фото.",
+  lead="iOS-приложение для подсчёта калорий: дневник питания, БЖУ, вес и умный поиск продуктов на русском языке.",
+  lead_en="An iOS calorie tracking app: a food diary, macros, weight tracking and smart food search in Russian.",
+  hero=PHONES_CAL,
+  facts=[("Собственный проект", "My own product"),
+         ("iOS-приложение", "iOS app"),
+         ("Дизайн, разработка приложения и серверной части", "Design, app development and the server side"),
+         ("SwiftUI, Swift Charts, Python, FatSecret API, Open Food Facts", "SwiftUI, Swift Charts, Python, FatSecret API, Open Food Facts")],
+  task="Сделать трекер питания уровня FatSecret, но удобный для русскоязычного пользователя. Сложность: бесплатная база FatSecret — только на английском, а искать «творог 5%» хочется по-русски.",
+  task_en="Build a nutrition tracker on par with FatSecret but convenient for Russian speakers. The catch: FatSecret's free database is English-only, while users want to search for “cottage cheese 5%” in Russian.",
+  solution=[
+   ("Локальная база из 244 популярных продуктов в 13 категориях с КБЖУ и типовыми порциями — ищет мгновенно, даже без интернета.", "A local database of 244 popular foods in 13 categories with macros and typical servings. Search is instant, even offline."),
+   ("Если локальных совпадений мало, запрос уходит в FatSecret через мой сервер-посредник: он переводит запрос на английский и хранит ключи в безопасности.", "When there are few local matches, the query goes to FatSecret through my proxy server, which translates it into English and keeps the API keys safe."),
+   ("Сканер штрихкодов через базу Open Food Facts.", "A barcode scanner backed by the Open Food Facts database."),
+   ("Распознавание еды по фото с помощью ИИ.", "AI food recognition from a photo."),
+   ("Дневник по приёмам пищи, кольцо калорий и БЖУ, график веса и отчёты.", "A diary by meal, a calorie and macro ring, a weight chart and reports."),
+   ("5 разделов и быстрая кнопка «+» для добавления еды.", "5 sections and a quick “+” button to log food."),
+  ],
+  results=[("244", "продукта в офлайн-базе", "foods in the offline database"),
+           ("13", "категорий продуктов", "food categories"),
+           ("3", "способа добавить еду: поиск, штрихкод, фото", "ways to log food: search, barcode, photo")],
+  links=[],
+ ),
+]
+
+UI = {  # общие подписи страниц кейсов
+ "case.eyebrow": ("Кейс · 2026", "Case study · 2026"),
+ "case.task": ("Задача", "The task"),
+ "case.solution": ("Что я сделал", "What I did"),
+ "case.results": ("Результат", "Results"),
+ "case.next": ("Следующий кейс", "Next case"),
+ "case.all": ("Все проекты", "All projects"),
+ "case.demo": ("Демо — по запросу в Telegram", "Demo available on request via Telegram"),
+ "proj.case": ("Подробнее о проекте", "Read the case study"),
+}

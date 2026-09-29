@@ -38,10 +38,11 @@
 
   // Блоки ниже первого экрана: появляются при прокрутке, группой с задержкой
   var groups = ['.projects', '.services', '.steps', '.stats', '.chips', '.info',
-                '.about-grid > div:first-child', '.contact-card', '.cta', '.rv-form-wrap'];
+                '.about-grid > div:first-child', '.contact-card', '.cta', '.rv-form-wrap',
+                '.case-hero', '.case-facts', '.case-list', '.case-results', '.case-text', '.case-next'];
   groups.forEach(function (sel) {
     document.querySelectorAll(sel).forEach(function (group) {
-      var items = group.children.length > 1 && !group.matches('.contact-card, .cta, .rv-form-wrap, .about-grid > div')
+      var items = group.children.length > 1 && !group.matches('.contact-card, .cta, .rv-form-wrap, .about-grid > div, .case-hero, .case-next')
         ? Array.prototype.slice.call(group.children) : [group];
       items.forEach(function (el) { el.style.opacity = '0'; });
       inView(group, function () {

@@ -3,3 +3,4 @@ server-secret/
 resume/
 .DS_Store
 *.zip
+__pycache__/

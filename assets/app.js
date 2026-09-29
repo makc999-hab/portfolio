@@ -45,7 +45,7 @@
     'proj.cal.p': 'An iOS nutrition tracker similar to FatSecret. It has a food diary, calorie and macro counting, hybrid food search (a local database plus an API through my own server) and weight and progress reports.',
     'proj.mh.t': 'More Hleba bakery', 'proj.vmr.t': 'VMR TRANS',
     'tag.shop': 'Online store', 'tag.pres': 'Presentation', 'tag.video': 'Video', 'tag.inv': 'Investors', 'tag.bot': 'Telegram bot',
-    'proj.open': 'Open', 'proj.bot': 'Open bot', 'proj.ios': 'iOS app · demo on request',
+    'proj.case': 'Read the case study', 'proj.open': 'Open', 'proj.bot': 'Open bot', 'proj.ios': 'iOS app · demo on request',
 
     // services
     'title.services': 'Services & Prices | Max Perepelitsa',
@@ -115,6 +115,7 @@
   nodes.forEach(function (n) { n.dataset.ru = n.innerHTML; });
   var titleNode = document.querySelector('title');
 
+  if (window.EN_EXTRA) for (var ek in window.EN_EXTRA) EN[ek] = window.EN_EXTRA[ek]; // тексты кейсов из build.py
   function getLang() {
     try { var s = localStorage.getItem('lang'); if (s) return s; } catch (e) {}
     return (navigator.language || 'ru').toLowerCase().indexOf('ru') === 0 ? 'ru' : 'en';

@@ -63,34 +63,37 @@ DATA = {
 
 CSS = """
 @page{size:A4;margin:0}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,sans-serif;color:#111;font-size:10.2pt;line-height:1.45;width:210mm;height:297mm;display:grid;grid-template-columns:64mm 1fr}
-aside{background:#0b0b0b;color:#eee;padding:14mm 8mm 12mm 10mm;display:flex;flex-direction:column;gap:7mm}
-aside img{width:40mm;height:40mm;border-radius:5mm;object-fit:cover}
-aside h3{font-size:8pt;letter-spacing:.12em;text-transform:uppercase;color:#9a9a9a;margin-bottom:2.5mm}
-.c{font-size:9pt;display:grid;gap:1.8mm}
-.c b{display:block;font-weight:600;color:#fff}
-.c a{color:#bbb;text-decoration:none}
-.sk{display:grid;gap:2.6mm;font-size:8.8pt}
-.sk b{color:#fff;font-weight:600;display:block}
-.sk span{color:#bbb}
-main{padding:14mm 12mm 12mm 11mm;display:flex;flex-direction:column;gap:6mm}
-h1{font-size:27pt;line-height:1.05;letter-spacing:-.02em;font-weight:800}
-.latin{color:#777;font-size:10pt;margin-top:1mm}
-.role{font-family:'Playfair Display',serif;font-weight:700;font-size:14pt;margin-top:3mm}
-.city{color:#555;font-size:9.5pt;margin-top:1.5mm}
-.badge{display:inline-flex;align-items:center;gap:2mm;background:#ececec;border-radius:10mm;padding:1mm 3.5mm;font-size:8.5pt;font-weight:500;margin-bottom:3mm}
-.badge i{width:2mm;height:2mm;border-radius:50%;background:#16a34a}
-h2{font-size:10pt;letter-spacing:.12em;text-transform:uppercase;border-bottom:1.5px solid #111;padding-bottom:1.5mm;margin-bottom:3mm}
-.job{display:flex;justify-content:space-between;font-weight:700;margin-bottom:2.5mm}
-.job span{font-weight:500;color:#666}
-.p{margin-bottom:2.8mm;padding-left:3.5mm;border-left:2px solid #e3e3e3}
-.p b{font-weight:700}
-.p em{font-style:normal;color:#666}
-.p div{color:#333;font-size:9.4pt}
-.e{display:flex;justify-content:space-between;gap:4mm;margin-bottom:2.5mm}
-.e div span{display:block;color:#555;font-size:9.2pt}
-.e small{color:#666;white-space:nowrap;font-size:9pt}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html,body{background:#100904}
+body{font-family:Inter,sans-serif;font-weight:500;font-feature-settings:"ss01" on;color:#ffedd7;font-size:9.6pt;line-height:1.4;width:210mm;height:297mm;display:grid;grid-template-columns:62mm 1fr;text-transform:uppercase}
+aside{border-right:1px dashed #40372e;padding:14mm 7mm 12mm 10mm;display:flex;flex-direction:column;gap:7mm}
+aside img{width:42mm;height:42mm;border-radius:3mm;object-fit:cover;filter:sepia(.18) saturate(.9)}
+aside h3,h2{font-size:7.5pt;font-weight:500;color:#dc5000;margin-bottom:3mm}
+.c{font-size:8.4pt;display:grid;gap:2.4mm}
+.c b{display:block;font-weight:500;color:#b8a896;font-size:7pt}
+.c a{color:#ffedd7;text-decoration:none;text-transform:none}
+.sk{display:grid;gap:3mm;font-size:8pt}
+.sk b{font-weight:500;display:block}
+.sk span{color:#b8a896;text-transform:none;font-weight:400;font-size:8.4pt}
+main{padding:15mm 12mm 13mm 10mm;display:flex;flex-direction:column;gap:9mm}
+h1{font-size:34pt;line-height:.9;font-weight:500}
+.latin{color:#6c5f51;font-size:8.5pt;margin-top:2.5mm}
+.role{font-size:11pt;margin-top:4mm}
+.city{color:#b8a896;font-size:8pt;margin-top:1.5mm}
+.badge{display:inline-flex;align-items:center;gap:2mm;font-size:7.5pt;color:#dc5000;margin-bottom:5mm}
+.badge i{width:1.8mm;height:1.8mm;border-radius:50%;background:#dc5000}
+section{border-top:1px dashed #40372e;padding-top:5mm}
+p{text-transform:none;font-weight:400;font-size:10.4pt;line-height:1.5}
+.job{display:flex;justify-content:space-between;font-size:9pt;margin-bottom:3mm}
+.job span{color:#b8a896}
+.p{margin-bottom:4.2mm}
+.p b{font-weight:500;font-size:9.6pt}
+.p em{font-style:normal;color:#b8a896;font-size:8pt}
+.p div{color:#e9d6bf;font-size:9.2pt;text-transform:none;font-weight:400;margin-top:.8mm}
+.e{display:flex;justify-content:space-between;gap:4mm;margin-bottom:4mm;font-size:8.6pt}
+.e b{font-weight:500}
+.e div span{display:block;color:#b8a896;font-size:9pt;text-transform:none;font-weight:400;margin-top:.6mm}
+.e small{color:#b8a896;white-space:nowrap;font-size:8pt}
 """
 
 def html(d, lang):
@@ -113,7 +116,7 @@ def html(d, lang):
   <div><h3>{d['h_skills']}</h3><div class="sk">{skills}</div></div>
 </aside>
 <main>
-  <div><span class="badge"><i></i>{ok}</span>
+  <div style="border:0"><span class="badge"><i></i>{ok}</span>
     <h1>{d['name']}</h1><div class="latin">{d['latin']}</div>
     <div class="role">{d['role']}</div><div class="city">{d['city']}</div></div>
   <section><h2>{d['h_about']}</h2><p>{d['about']}</p></section>

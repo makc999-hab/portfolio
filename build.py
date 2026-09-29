@@ -6,7 +6,7 @@ ROOT = Path(__file__).parent / "dist"
 SITE = "https://maxperepelitsa.store"
 TG = "https://t.me/xxxtentac1onxx"
 GH = "https://github.com/makc999-hab"
-V = "13"  # cache-buster для css/js
+V = "14"  # cache-buster для css/js
 
 def ico(d, extra=""):
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"{extra}>{d}</svg>'
@@ -40,10 +40,12 @@ NAV = [("home", "index.html", "Главная"), ("about", "about.html", "Обо
        ("services", "services.html", "Услуги"),
        ("contact", "contact.html", "Контакты")]
 
+NAV_PARENT = {}  # страницы-потомки подсвечивают раздел меню (кейсы → «Проекты»)
+
 def page(key, file, title, desc, body, cta=True, scripts=()):
     act = ' class="active" aria-current="page"'
     links = "".join(
-        f'<a href="{f if f != "index.html" else "./"}"{act if k == key else ""}>'
+        f'<a href="{f if f != "index.html" else "./"}"{act if k == NAV_PARENT.get(key, key) else ""}>'
         f'{I[k]}<span data-i18n="nav.{k}">{label}</span></a>' for k, f, label in NAV)
     url = SITE + "/" + ("" if file == "index.html" else file)
     cta_html = f'''
@@ -140,13 +142,20 @@ ABOUT = f'''
 
 TAGKEYS = {'Интернет-магазин': 'tag.shop', 'Презентация': 'tag.pres', 'Видео': 'tag.video', 'Инвесторы': 'tag.inv', 'Telegram-бот': 'tag.bot'}
 
-def card(shot, title, tags, pkey, ptext, link=None, lkey="proj.open", ltext="Открыть"):
+def card(shot, title, tags, pkey, ptext, link=None, lkey="proj.open", ltext="Открыть", case=None):
     tk = TAGKEYS
     tag_html = "".join(f'<span data-i18n="{tk[t]}">{t}</span>' if t in tk else f"<span>{t}</span>" for t in tags)
     if link:
         a = f'<a class="card-link" href="{link}" target="_blank" rel="noopener"><span data-i18n="{lkey}">{ltext}</span>{I["ext"]}</a>'
     else:
         a = f'<span class="card-link off" data-i18n="{lkey}">{ltext}</span>'
+    if case and not lkey:
+        a = ""
+    if case:
+        a = (f'<div class="card-links"><a class="card-link" href="{case}"><span data-i18n="proj.case">Подробнее о проекте</span>{I["arrow"]}</a>'
+             + a.replace('class="card-link', 'class="card-link sub') + '</div>')
+        shot = f'<a class="shot-link" href="{case}" tabindex="-1" aria-hidden="true">{shot}</a>'
+        title = f'<a href="{case}">{title}</a>'
     return f'''<article class="card">{shot}<div class="card-body">
 <h3 data-i18n="{pkey[:-2]}.t">{title}</h3><div class="tags">{tag_html}</div><p data-i18n="{pkey}">{ptext}</p>{a}</div></article>'''
 
@@ -165,18 +174,18 @@ PROJECTS = f'''
 {card('<div class="shot"><img src="assets/morehleba.webp" width="1200" height="750" alt="Сайт пекарни Море хлеба" loading="lazy"></div>',
       "Море хлеба", ["Интернет-магазин", "PHP", "ЮKassa", "CRM"], "proj.mh.p",
       "Интернет-магазин ремесленной пекарни во Владивостоке: каталог с КБЖУ, корзина, вход по звонку, личный кабинет, оплата через ЮKassa и CRM для заказов. 99/100 в Lighthouse на мобильных.",
-      "https://morehleba.ru/")}
+      None, None, None, case="case-morehleba.html")}
 {card('<div class="shot"><img src="assets/vmr.webp" width="1200" height="750" alt="Презентация ВМР ТРАНС" loading="lazy"></div>',
       "ВМР ТРАНС", ["Презентация", "Видео", "Инвесторы"], "proj.vmr.p",
       "Кинематографичная видео-презентация для инвесторов компании по аквакультуре на Дальнем Востоке: 16 полноэкранных слайдов с видео и ленивой загрузкой — быстро открывается даже с мобильного интернета.",
-      "https://maxperepelitsa.store/vmr-trans/")}
+      "https://maxperepelitsa.store/vmr-trans/", case="case-vmr-trans.html")}
 {card('<div class="shot phones dark"><div class="phone-frame side"><img src="assets/greymax-1.webp" width="360" height="780" alt="GREYMAX — экран приветствия" loading="lazy"></div><div class="phone-frame"><img src="assets/greymax-2.webp" width="360" height="780" alt="GREYMAX — главный экран Mini App" loading="lazy"></div><div class="phone-frame side"><img src="assets/greymax-3.webp" width="360" height="780" alt="GREYMAX — выбор тарифа" loading="lazy"></div></div>',
       "GREYMAX", ["Telegram-бот", "Mini App", "Python", "Подписки"], "proj.gm.p",
       "Telegram-бот с оплатой подписок и Mini App с фирменным маскотом: автоматическая выдача доступа после оплаты через ЮKassa и СБП, личный кабинет, работа 24/7 на собственном сервере.",
-      None, "proj.nda", "Коммерческий проект · демо по запросу")}
+      None, "proj.nda", "Коммерческий проект · демо по запросу", case="case-greymax.html")}
 {card(CAL_MOCK, "CalorieAI", ["iOS", "SwiftUI", "API"], "proj.cal.p",
       "iOS-трекер питания в духе FatSecret: дневник, подсчёт калорий и БЖУ, гибридный поиск продуктов (локальная база + API через собственный сервер), отчёты по весу и прогрессу.",
-      None, "proj.ios", "iOS-приложение · демо по запросу")}
+      None, "proj.ios", "iOS-приложение · демо по запросу", case="case-calorieai.html")}
 </section></div>'''
 
 def svc(n, icon, title, text, items, price, term):
@@ -291,6 +300,54 @@ CONSENT = f'''
 <p>Согласие действует до его отзыва. Отозвать согласие и потребовать удалить отзыв можно в любой момент, написав оператору в Telegram; отзыв будет удалён в течение 3 рабочих дней.</p>
 </section></div>'''
 
+
+# ---------- страницы кейсов (контент — в cases.py) ----------
+import json
+from cases import CASES, FACT_LABELS, UI as CASE_UI
+
+def case_page(c, nxt):
+    k = f"case.{c['slug']}"
+    en = {f"title.case-{c['slug']}": c["meta_en"], f"{k}.lead": c["lead_en"], f"{k}.task": c["task_en"],
+          **{key: v[1] for key, v in CASE_UI.items()}, f"{nxt['slug']}.next.t": nxt["title_en"]}
+    if c["title_en"] != c["title"]: en[f"{k}.t"] = c["title_en"]
+    facts = ""
+    for (fk, ru_l, en_l), (ru_v, en_v) in zip(FACT_LABELS, c["facts"]):
+        en[f"case.f.{fk}"] = en_l; en[f"{k}.f.{fk}"] = en_v
+        facts += f'<div><b data-i18n="case.f.{fk}">{ru_l}</b><span data-i18n="{k}.f.{fk}">{ru_v}</span></div>'
+    sol = ""
+    for i, (ru, en_t) in enumerate(c["solution"], 1):
+        en[f"{k}.s{i}"] = en_t
+        sol += f'<li><i>{i:02d}</i><span data-i18n="{k}.s{i}">{ru}</span></li>'
+    res = ""
+    for i, (num, ru, en_t) in enumerate(c["results"], 1):
+        en[f"{k}.r{i}"] = en_t
+        res += f'<div><b>{num}</b><span data-i18n="{k}.r{i}">{ru}</span></div>'
+    links = ""
+    for i, (href, ru, en_t) in enumerate(c["links"], 1):
+        en[f"{k}.l{i}"] = en_t
+        links += f'<a class="btn btn-light" href="{href}" target="_blank" rel="noopener">{I["ext"]}<span data-i18n="{k}.l{i}">{ru}</span></a>'
+    if c.get("demo"):
+        links = f'<span class="case-demo" data-i18n="case.demo">{CASE_UI["case.demo"][0]}</span>'
+    en_js = json.dumps(en, ensure_ascii=False).replace("</", "<\\/")
+    return f'''
+<script>window.EN_EXTRA=Object.assign(window.EN_EXTRA||{{}},{en_js})</script>
+<div class="wrap case">
+<div class="page-head"><div class="eyebrow"><a href="projects.html" data-i18n="case.all">Все проекты</a> · <span data-i18n="case.eyebrow">Кейс · 2026</span></div>
+<h1 data-i18n="{k}.t">{c["title"]}</h1>
+<p data-i18n="{k}.lead">{c["lead"]}</p></div>
+<section class="case-hero">{c["hero"]}</section>
+<section class="case-facts">{facts}</section>
+<section class="case-block"><h2 data-i18n="case.task">Задача</h2><p class="case-text" data-i18n="{k}.task">{c["task"]}</p></section>
+<section class="case-block"><h2 data-i18n="case.solution">Что я сделал</h2><ol class="case-list">{sol}</ol></section>
+<section class="case-block"><h2 data-i18n="case.results">Результат</h2><div><div class="case-results">{res}</div><div class="case-links">{links}</div></div></section>
+<section><a class="case-next" href="{nxt["file"]}"><span data-i18n="case.next">Следующий кейс</span><b data-i18n="{nxt['slug']}.next.t">{nxt["title"]}</b>{I["arrow"]}</a></section>
+</div>'''
+
+CASE_PAGES = []
+for i, c in enumerate(CASES):
+    NAV_PARENT[f"case-{c['slug']}"] = "projects"
+    CASE_PAGES.append((f"case-{c['slug']}", c["file"], c["meta"], c["desc"], case_page(c, CASES[(i + 1) % len(CASES)]), True))
+
 PAGES = [
     ("home", "index.html", "Max Perepelitsa — веб-разработчик и создатель Telegram-ботов",
      "Портфолио Max Perepelitsa: сайты, интернет-магазины, Telegram-боты, Mini Apps и iOS-приложения под ключ. Владивосток, работаю удалённо.", HOME, False),
@@ -326,6 +383,8 @@ ExpiresByType application/javascript "access plus 30 days"
 AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
 </IfModule>
 """
+
+PAGES[3:3] = CASE_PAGES  # после «Проектов» — порядок влияет только на sitemap
 
 if __name__ == "__main__":
     import shutil
