@@ -6,7 +6,7 @@ ROOT = Path(__file__).parent / "dist"
 SITE = "https://maxperepelitsa.store"
 TG = "https://t.me/xxxtentac1onxx"
 GH = "https://github.com/makc999-hab"
-V = "11"  # cache-buster для css/js
+V = "12"  # cache-buster для css/js
 
 def ico(d, extra=""):
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"{extra}>{d}</svg>'
@@ -70,13 +70,16 @@ def page(key, file, title, desc, body, cta=True, scripts=()):
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/style.css?v={V}">
+<script>document.documentElement.classList.add('anim');setTimeout(function(){{if(!window.__animOk)document.documentElement.classList.remove('anim')}},2500)</script>
 </head>
 <body>
 <header class="topbar"><nav class="nav" aria-label="Навигация">{links}
 <div class="lang" role="group" aria-label="Language"><button data-lang="ru">RU</button><button data-lang="en">EN</button></div></nav></header>
 <main>{body}{cta_html}</main>
 <footer><div class="wrap"><span>© 2026 Max Perepelitsa · <span data-i18n="footer.art">аватар — арт Nemo</span></span><a href="privacy.html" data-i18n="footer.privacy">Политика конфиденциальности</a></div></footer>
-<script src="assets/app.js?v={V}"></script>{"".join(f'<script src="assets/{js}?v={V}"></script>' for js in scripts)}
+<script src="assets/app.js?v={V}"></script>
+<script src="assets/motion.js?v={V}"></script>
+<script src="assets/anim.js?v={V}"></script>{"".join(f'<script src="assets/{js}?v={V}"></script>' for js in scripts)}
 </body>
 </html>
 '''

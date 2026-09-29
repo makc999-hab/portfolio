@@ -368,3 +368,7 @@ footer a:hover{color:var(--fg)}
   .rv-form-wrap{padding:22px 18px}
   .nav a{padding:9px 9px}
 }
+
+/* ---------- animations (Motion) ---------- */
+html.anim .hero > div:first-child > *, html.anim .page-head > *, html.anim .avatar{opacity:0}
+.avatar{will-change:transform}
