@@ -16,7 +16,7 @@
   }
   var avatar = document.querySelector('.avatar');
   if (avatar) {
-    animate(avatar, { opacity: [0, 1], scale: [0.92, 1], rotate: [6, 1.5] },
+    animate(avatar, { opacity: [0, 1], scale: [0.92, 1], rotate: [0, 0] },
       { duration: 0.9, delay: 0.25, ease: ease });
 
     // Лёгкий наклон аватара за курсором (только мышь, не тач)
@@ -29,7 +29,7 @@
           { type: 'spring', stiffness: 200, damping: 20 });
       });
       avatar.addEventListener('pointerleave', function () {
-        animate(avatar, { rotateY: 0, rotateX: 0, rotate: 1.5, scale: 1, transformPerspective: 800 },
+        animate(avatar, { rotateY: 0, rotateX: 0, rotate: 0, scale: 1, transformPerspective: 800 },
           { type: 'spring', stiffness: 150, damping: 18 });
       });
     }
